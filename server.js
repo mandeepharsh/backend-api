@@ -7,7 +7,7 @@ const register = require('./controllers/register.js')
 const signin = require('./controllers/signin.js');
 const  profile  = require('./controllers/profile.js');
 const image = require('./controllers/image.js')
-const PORT = process.env.PORT
+
 
 const db= knex({
     client: 'pg',
@@ -22,7 +22,9 @@ const db= knex({
 db.select('*').from('users')
 app.use(express.json());
 app.use(cors());
-
+app.get("/", (req, res) => {
+  res.send("it's working!");
+  });
 
 app.post('/signin',(req,res)=>{signin.handleSignin(req,res,db ,bcrypt)})
 
@@ -31,6 +33,6 @@ app.post('/register',(req,res)=>{register.handleRegister(req,res,db ,bcrypt)})
 app.post('/profile/:id',(req,res)=> {profile.handleProfileGet(req,res,db)})
 app.put('/image',(req,res) => {image.handleImage(req,res,db)})
 app.post('/imageUrl',(req,res) => {image.handleApiCall(req,res)})
-app.listen(PORT,()=> {
+app.listen(3000,()=> {
     console.log ('this server is running')
 });
