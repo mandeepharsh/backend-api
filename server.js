@@ -9,16 +9,13 @@ const  profile  = require('./controllers/profile.js');
 const image = require('./controllers/image.js')
 
 
-const db = knex ({ 
-    client: 'pg', 
+const db= knex({
+    client: 'pg',
     connection: {
-        connectionString: process.env.DATABASE_URL, 
-        console.log('connectionString')
-        ssl:{ 
-            rejectUnauthorized: false 
-        }
+      connectingString : process.env.DATABASE_URL,
+      ssl : true,
     }
-});
+  });
 
 db.select('*').from('users')
 app.use(express.json());
