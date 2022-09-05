@@ -12,10 +12,11 @@ const image = require('./controllers/image.js')
 const db= knex({
     client: 'pg',
     connection: {
-      connectingString : process.env.DATABASE_URL,
-      ssl : true,
-    }
-  });
+connectionString: process.env.DATABASE_URL,
+ssl: {
+rejectUnauthorized: false,
+},
+});
 
 db.select('*').from('users')
 app.use(express.json());
